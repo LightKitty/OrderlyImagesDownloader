@@ -30,6 +30,7 @@ namespace OrderlyImagesDownloader
         private void buttonDownload_Click(object sender, EventArgs e)
         {
             buttonDownload.Enabled = false;
+            //progressBarDownload.Show();
             try
             {
                 FolderBrowserVistaDialog fbd = new FolderBrowserVistaDialog();
@@ -41,7 +42,7 @@ namespace OrderlyImagesDownloader
                     count = endId - startID + 1;
                     progressBarDownload.Maximum = count;
                     progress = 0;
-                    Progress("Start download", 0);
+                    Progress("开始下载", 0);
                     int threadCount = (int)numericUpDownThreadCount.Value;
                     string urlTemplate = textBoxUrlTemplate.Text.Trim();
                     Download(urlTemplate, startID, endId, threadCount);
@@ -71,9 +72,10 @@ namespace OrderlyImagesDownloader
                 Task.WaitAll(tasks); //等待修复完成
             });
             buttonDownload.Enabled = true;
-            string message = "Download complete";
+            string message = "全部下载完成";
             WirteMessage(message);
             MessageBox.Show(message);
+            //progressBarDownload.Hide();
         }
 
         private void DownloadOne(string url)
@@ -90,7 +92,7 @@ namespace OrderlyImagesDownloader
                 }
                 this.BeginInvoke(new MethodInvoker(() =>
                 {
-                    Progress($"{fileName} downloaded");
+                    Progress($"{fileName} 下载成功");
                 }));
             }
             catch(Exception ex)
@@ -115,9 +117,15 @@ namespace OrderlyImagesDownloader
             }
         }
 
-        private void WirteMessage(string message)
+        private void WirteMessage(string message, bool newLine = true)
         {
-            textBoxMessage.AppendText(message + Environment.NewLine);
+            //message = $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} | {message}";
+            textBoxMessage.AppendText(newLine ? Environment.NewLine + message : message);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            WirteMessage("就绪", false);
         }
     }
 }

@@ -100,14 +100,14 @@
             // 
             // progressBarDownload
             // 
-            this.progressBarDownload.Location = new System.Drawing.Point(12, 226);
+            this.progressBarDownload.Location = new System.Drawing.Point(12, 99);
             this.progressBarDownload.Name = "progressBarDownload";
             this.progressBarDownload.Size = new System.Drawing.Size(360, 23);
             this.progressBarDownload.TabIndex = 9;
             // 
             // textBoxMessage
             // 
-            this.textBoxMessage.Location = new System.Drawing.Point(12, 99);
+            this.textBoxMessage.Location = new System.Drawing.Point(12, 128);
             this.textBoxMessage.Multiline = true;
             this.textBoxMessage.Name = "textBoxMessage";
             this.textBoxMessage.ReadOnly = true;
@@ -163,6 +163,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "有序图片下载";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThreadCount)).EndInit();
