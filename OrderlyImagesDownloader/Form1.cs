@@ -40,9 +40,8 @@ namespace OrderlyImagesDownloader
                     int startID = (int)numericUpDownStartID.Value;
                     int endId = (int)numericUpDownEndID.Value;
                     count = endId - startID + 1;
-                    progressBarDownload.Maximum = count;
-                    progress = 0;
-                    Progress("开始下载", 0);
+                    ProgressReset(count);
+                    WirteMessage("开始下载");
                     int threadCount = (int)numericUpDownThreadCount.Value;
                     string urlTemplate = textBoxUrlTemplate.Text.Trim();
                     Download(urlTemplate, startID, endId, threadCount);
@@ -52,6 +51,12 @@ namespace OrderlyImagesDownloader
             {
                 WirteMessage(ex.Message);
             }
+        }
+
+        private void ProgressReset(int maximum = 0)
+        {
+            progressBarDownload.Maximum = maximum;
+            progress = 0;
         }
 
         private async void Download(string urlTemplate, int startID, int endId, int threadCount)
@@ -75,6 +80,7 @@ namespace OrderlyImagesDownloader
             string message = "全部下载完成";
             WirteMessage(message);
             MessageBox.Show(message);
+            ProgressReset();
             //progressBarDownload.Hide();
         }
 
