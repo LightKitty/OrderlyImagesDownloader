@@ -25,6 +25,9 @@ namespace OrderlyImagesDownloader
 
             numericUpDownStartID.Maximum = int.MaxValue;
             numericUpDownEndID.Maximum = int.MaxValue;
+
+            //https://www.cnblogs.com/farb/p/HttpRequestProblem.html
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
 
         private void buttonDownload_Click(object sender, EventArgs e)
