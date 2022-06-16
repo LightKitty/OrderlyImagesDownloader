@@ -32,13 +32,13 @@ namespace OrderlyImagesDownloader
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            buttonDownload.Enabled = false;
             //progressBarDownload.Show();
             try
             {
                 FolderBrowserVistaDialog fbd = new FolderBrowserVistaDialog();
                 if (fbd.ShowDialog(this) == DialogResult.OK)
                 {
+                    buttonDownload.Enabled = false;
                     outDirectory = fbd.DirectoryPath + "\\";
                     int startID = (int)numericUpDownStartID.Value;
                     int endId = (int)numericUpDownEndID.Value;
