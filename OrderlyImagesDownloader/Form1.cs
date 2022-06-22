@@ -35,18 +35,27 @@ namespace OrderlyImagesDownloader
             //progressBarDownload.Show();
             try
             {
+                int startID = (int)numericUpDownStartID.Value;
+                int endId = (int)numericUpDownEndID.Value;
+                if (endId < startID)
+                {
+                    MessageBox.Show("结束ID不能小于起始ID！");
+                }
                 FolderBrowserVistaDialog fbd = new FolderBrowserVistaDialog();
                 if (fbd.ShowDialog(this) == DialogResult.OK)
                 {
                     buttonDownload.Enabled = false;
-                    outDirectory = fbd.DirectoryPath + "\\";
-                    int startID = (int)numericUpDownStartID.Value;
-                    int endId = (int)numericUpDownEndID.Value;
+                    string urlTemplate = textBoxUrlTemplate.Text.Trim();
+                    string outFolder = Path.GetFileNameWithoutExtension(string.Format(urlTemplate, startID + "-" + endId));
+                    outDirectory = fbd.DirectoryPath + "\\" + outFolder + "\\";
+                    if (!Directory.Exists(outDirectory))
+                    {
+                        Directory.CreateDirectory(outDirectory);
+                    }
                     count = endId - startID + 1;
                     ProgressReset(count);
                     WirteMessage("开始下载");
                     int threadCount = (int)numericUpDownThreadCount.Value;
-                    string urlTemplate = textBoxUrlTemplate.Text.Trim();
                     Download(urlTemplate, startID, endId, threadCount);
                 }
             }
