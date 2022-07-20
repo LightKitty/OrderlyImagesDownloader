@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,7 @@ namespace OrderlyImagesDownloader
         private string outDirectory;
         private int count;
         private int progress;
+        private ConcurrentBag<string> errorUrls;
 
         public MainForm()
         {
@@ -54,6 +56,7 @@ namespace OrderlyImagesDownloader
                     }
                     count = endId - startID + 1;
                     ProgressReset(count);
+                    errorUrls = new ConcurrentBag<string>();
                     WirteMessage("开始下载");
                     int threadCount = (int)numericUpDownThreadCount.Value;
                     Download(urlTemplate, startID, endId, threadCount);
@@ -91,6 +94,11 @@ namespace OrderlyImagesDownloader
             buttonDownload.Enabled = true;
             string message = "全部下载完成";
             WirteMessage(message);
+            if(errorUrls?.Any() == true)
+            {
+                string errMsg = "存在下载失败的url：" + Environment.NewLine + string.Join(Environment.NewLine, errorUrls);
+                WirteMessage(errMsg);
+            }
             MessageBox.Show(message);
             ProgressReset();
             //progressBarDownload.Hide();
@@ -115,6 +123,7 @@ namespace OrderlyImagesDownloader
             }
             catch(Exception ex)
             {
+                errorUrls.Add(url);
                 this.BeginInvoke(new MethodInvoker(() =>
                 {
                     WirteMessage(ex.Message);
