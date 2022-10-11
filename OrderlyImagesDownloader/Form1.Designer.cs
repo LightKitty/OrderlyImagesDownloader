@@ -111,6 +111,7 @@
             this.textBoxMessage.Multiline = true;
             this.textBoxMessage.Name = "textBoxMessage";
             this.textBoxMessage.ReadOnly = true;
+            this.textBoxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxMessage.Size = new System.Drawing.Size(360, 121);
             this.textBoxMessage.TabIndex = 10;
             // 
@@ -135,7 +136,7 @@
             this.numericUpDownThreadCount.Size = new System.Drawing.Size(79, 23);
             this.numericUpDownThreadCount.TabIndex = 13;
             this.numericUpDownThreadCount.Value = new decimal(new int[] {
-            8,
+            2,
             0,
             0,
             0});
