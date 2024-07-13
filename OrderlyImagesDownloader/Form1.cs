@@ -37,6 +37,7 @@ namespace OrderlyImagesDownloader
             //progressBarDownload.Show();
             try
             {
+                ProgressReset();
                 int startID = (int)numericUpDownStartID.Value;
                 int endId = (int)numericUpDownEndID.Value;
                 if (endId < startID)
